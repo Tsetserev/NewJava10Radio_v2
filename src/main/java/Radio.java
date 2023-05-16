@@ -1,59 +1,72 @@
 public class Radio {
-    protected int currentStation;
-    protected int currentVolume;
 
-    public void increaseVolume() {
-        if (currentVolume < 10) {
-            currentVolume++;
+    private int currentNumberRadioStation;
+    private int maxNumberRadioStation;
+    private int minNumberRadioStation;
+    private int currentSoundVolume;   // текущая громкость звука
+
+    public Radio() {
+        maxNumberRadioStation = 9;
+        minNumberRadioStation = 0;
+    }
+
+    public Radio(int quantityRadioStation) {
+        this.maxNumberRadioStation = quantityRadioStation - 1;
+    }
+
+    public int getCurrentNumberRadioStation() {
+        return currentNumberRadioStation;
+    }
+
+    public void setCurrentNumberRadioStation(int newCurrentNumberRadioStation) {
+        if (newCurrentNumberRadioStation < minNumberRadioStation) {
+            return;
+        }
+        if (newCurrentNumberRadioStation > maxNumberRadioStation) {
+            return;
+        }
+        currentNumberRadioStation = newCurrentNumberRadioStation;
+    }
+
+    public void nextNumberRadioStation() {    // переключение на +
+        if (currentNumberRadioStation < maxNumberRadioStation) {
+            currentNumberRadioStation++;
         } else {
-            currentVolume = 10;
+            currentNumberRadioStation = minNumberRadioStation;
         }
     }
 
-    public void decreaseVolume() {
-        // Проверить
-        if (currentVolume > 10) {
-            currentVolume = 10;
-        } else if (currentVolume < 1) {
-            currentVolume = 0;
+    public void prevNumberRadioStation() { //переключение на -
+        if (currentNumberRadioStation > minNumberRadioStation) {
+            currentNumberRadioStation--;
         } else {
-            // Понизить
-            currentVolume--;
+            currentNumberRadioStation = maxNumberRadioStation;
         }
     }
 
-    public void nextStation() {
-        if (currentStation < 9) {
-            currentStation++;
-        } else {
-            currentStation = 0;
+    public int getCurrentSoundVolume() {
+        return currentSoundVolume;
+    }
+
+    public void setCurrentSoundVolume(int newCurrentSoundVolume) {  //  передача данных о р-станции
+        if (newCurrentSoundVolume < 0) {
+            return;
+        }
+        if (newCurrentSoundVolume > 100) {
+            return;
+        }
+        currentSoundVolume = newCurrentSoundVolume;
+    }
+
+    public void increaseVolumeSound() {    //громкости+
+        if (currentSoundVolume < 100) {
+            currentSoundVolume++;
         }
     }
 
-    public short previousStation() {
-        if (currentStation > 0) {
-            currentStation--;
-        } else {
-            currentStation = 9;
+    public void decreaseVolumeSound() { // громкости -
+        if (currentSoundVolume > 0) {
+            currentSoundVolume--;
         }
-        return 0;
-    }
-
-
-    public int getCurrentStation() {
-        return currentStation;
-    }
-
-    public void setCurrentStation(int currentStation) {
-
-        this.currentStation = currentStation;
-    }
-
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public void setCurrentVolume(int currentVolume) {
-        this.currentVolume = currentVolume;
     }
 }
